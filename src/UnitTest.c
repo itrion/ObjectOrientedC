@@ -1,11 +1,13 @@
 #include "UnitTest.h"
+#include "ObjectManager.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 void printOkMessage();
-void printErrorMessage(int expected, int actual);
+void printErrorMessage(const void* expected, const void* actual);
 
-void assertEquals(int expected, int actual){
-	if(expected == actual)
+void assertEquals(const void* expected, const void* actual){
+	if(equals(expected, actual))
 		printOkMessage();
 	else
 		printErrorMessage(expected, actual);
@@ -14,10 +16,6 @@ void assertEquals(int expected, int actual){
 void printOkMessage(){
 	puts("OK");
 }
-void printErrorMessage(int expected, int actual){
-	printf("%s\n", "ERROR:");
-	printf("%s\n", "Expected: ");
-	printf("%d\n", expected);
-	printf("%s\n", "Actual:");
-	printf("%d\n", actual);
+void printErrorMessage(const void* expected, const void* actual){
+	printf("%s\n", "ERROR");
 }

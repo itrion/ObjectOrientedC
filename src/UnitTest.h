@@ -1,7 +1,6 @@
 #ifndef UNIT_TEST_H
 #define UNIT_TEST_H
 
-void assertEquals(int expected, int actual);
-void assertEquals(double expected, double actual);
+void assertEquals(const void* expected, const void* actual);
 
 #endif
