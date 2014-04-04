@@ -1,8 +1,7 @@
-#ifndef MEMORY_MANAGER_H
-#define MEMORY_MANAGER_H
+#ifndef OBJECT_MANAGER_H
+#define OBJECT_MANAGER_H
 
-void* new(const void* clazz, ...);
+void* new(const void* objectClass, ...);
 void delete(const void* object);
-int compare(const void* objectA, const void* objectB);
 
 #endif

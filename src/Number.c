@@ -1,5 +1,9 @@
 #include "Number.h"
 #include "Class.h"
+#include <stdarg.h>
+
+static void* Number_constructor(const void* _self, va_list* parameters);
+static void* Number_destructor(const void* _self);
 
 struct Number{
 	const void* class;
@@ -8,30 +12,25 @@ struct Number{
 
 static const struct Class _Number = {
 	sizeof(struct Number),
-	String_constructor,
-	String_destructor,
-	String_compare
-}
+	Number_constructor,
+	Number_destructor
+};
 
 const void* Number = &_Number;
 
-static void* Number_constructor(void* _self, va_list* app){
+int getValue(void* _self){
 	struct Number* self = _self;
-	self->value = va_arg(*app, int);
+	if (self->value)
+		return self->value;
+	return 0;
+}
+
+static void* Number_constructor(const void* _self, va_list* parameters){
+	struct Number* self = _self;
+	self->value = va_arg(*parameters, int);
 	return self;
 }
 
-static void* Number_destructor(void* _self){
-	struct Number* self = _self;
-	self->value = 0;
-	return self;
-}
-
-static int Number_compare(const void* _self, const void* object){
-	struct Number* self = _self;
-	struct Number* otherObject = object;
-	if(! self || otherObject->class != Number) return 1;
-	if(self->value == otherObject->value) return 0;
-	if(self->value > otherObject->value) return 1;
-	else return -1;
+static void* Number_destructor(const void* _self){
+	return 0;
 }

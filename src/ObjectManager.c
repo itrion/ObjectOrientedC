@@ -1,7 +1,6 @@
 #include "ObjectManager.h"
-#include <stdlib.h>
-#include <stdarg.h>
-#include "assert.h"
+#include <stdio.h>
+#include <assert.h>
 #include "Class.h"
 
 void* new(const void* objectClass, ...){
@@ -9,20 +8,18 @@ void* new(const void* objectClass, ...){
 	void* object = malloc(class->size);
 	assert(object);
 	*(const struct Class**)object = class;
-	va_list ap;
-	va_start(ap, objectClass);
-	object = class->constructor(object, &ap);
-	va_end(ap);
+	if(class->constructor){
+		va_list parameters;
+		va_start(parameters, objectClass);
+		object = class->constructor(object, &parameters);
+		va_end(parameters);
+	}
 	return object;
 }
 
 void delete(const void* object){
 	const struct Class** class = object;
-	object = (*class)->destructor(object);
-	free((void*) object);
-}
-
-int compare(const void* objectA, const void* objectB){
-	const struct Class* const* class = objectA;
-	return (*class)->compare(objectA, objectB);
+	if(object && *class && (*class)->destructor)
+		object = (*class)->destructor(object);
+	free(object);
 }
