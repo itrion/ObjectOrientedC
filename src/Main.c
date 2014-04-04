@@ -1,8 +1,12 @@
 #include "Calculator.h"
 #include "UnitTest.h"
+#include "ObjectManager.h"
+#include "Number.h"
+
+const void* Number;
 
 int main(int argc, char const *argv[]){
-	assertEquals(2, sum(1, 1));
-	assertEquals(0.2, sum(0.1, 0.1));
+	void* number = new(Number, 3);
+	assertEquals(number, sum(1, 1));
 	return 0;
 }
