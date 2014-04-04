@@ -7,7 +7,7 @@ void printOkMessage();
 void printErrorMessage(const void* expected, const void* actual);
 
 void assertEquals(const void* expected, const void* actual){
-	if(equals(expected, actual))
+	if(compare(expected, actual))
 		printOkMessage();
 	else
 		printErrorMessage(expected, actual);

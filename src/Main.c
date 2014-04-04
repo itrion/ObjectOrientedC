@@ -3,10 +3,11 @@
 #include "ObjectManager.h"
 #include "Number.h"
 
-const void* Number;
-
 int main(int argc, char const *argv[]){
-	void* number = new(Number, 3);
-	assertEquals(number, sum(1, 1));
+	void* expectedNumber = new(Number, 3);
+	void* resultNumber = sum(1, 1);
+	assertEquals(expectedNumber, resultNumber);
+	delete(expectedNumber);
+	delete(resultNumber);
 	return 0;
 }
