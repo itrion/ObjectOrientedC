@@ -1,7 +1,7 @@
 #include "ObjectManager.h"
+#include "Class.h"
 #include <stdio.h>
 #include <assert.h>
-#include "Class.h"
 
 void* new(const void* objectClass, ...){
 	const struct Class* class = objectClass;
@@ -17,9 +17,15 @@ void* new(const void* objectClass, ...){
 	return object;
 }
 
-void delete(const void* object){
+void delete(void* object){
 	const struct Class** class = object;
 	if(object && *class && (*class)->destructor)
 		object = (*class)->destructor(object);
 	free(object);
+}
+
+void draw(const void* object){
+	const struct Class** class = object;
+	assert(object && *class && (*class)->draw);
+	(*class)->draw(object);
 }
