@@ -7,6 +7,7 @@ struct Class{
 	size_t size;
 	void* (*constructor)(const void* self, va_list* parameters);
 	void* (*destructor)(const void* self);
+	void (*draw)(const void* self);
 };
 
 #endif
